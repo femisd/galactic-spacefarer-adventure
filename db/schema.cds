@@ -1,4 +1,4 @@
-namespace galactic.spacefarer;
+namespace galactic;
 
 using { cuid, managed } from '@sap/cds/common';
 
