@@ -4,23 +4,18 @@ service CosmicService @(requires: 'authenticated-user') {
 
     /**
      * Restricts access to spacefarers based on their origin planet.
-     * Grant spacefares with the highest security clearance (5) the ability to create, update, and delete spacefarers from their origin planet.
+     * Grant spacefares with manager role the ability to create, update, and delete spacefarers from their own origin planet.
      */
     @restrict: [
         {
-            grant: 'READ',
+            grant: ['READ'],
             to   : 'spacefarer',
             where: (originPlanet = $user.originPlanet)
         },
         {
-            grant: [
-                'CREATE',
-                'UPDATE',
-                'DELETE'
-            ],
-            to   : 'spacefarer',
-            where: (originPlanet = $user.originPlanet
-            and     $user.securityClearance = 5)
+            grant: ['WRITE'],
+            to   : 'manager',
+            where: (originPlanet = $user.originPlanet)
         },
         {
             grant: '*',

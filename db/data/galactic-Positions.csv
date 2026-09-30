@@ -1,0 +1,4 @@
+ID,title,description,securityClearance,createdAt,createdBy,modifiedAt,modifiedBy
+19648213-3f47-41d1-b20c-ab91500fb418,Captain,Responsible for leading spacefarer teams,5,2011-11-18T00:00:00.000Z,createdBy.bp4np@example.net,2007-10-10T00:00:00.000Z,modifiedBy.bp4np@example.com
+31055303-bc77-4570-8949-d4850e911287,Electrical Engineer,Responsible for maintaining the electrical systems of galactic vessels,3,2017-04-14T00:00:00.000Z,createdBy.ihmfb@example.net,2006-11-10T00:00:00.000Z,modifiedBy.ihmfb@example.net
+31055304-d297-4b9e-b9f6-f723c1928096,Supply Assistant,Responsible for supporting supply chain operations,1,2015-02-02T00:00:00.000Z,createdBy.ihmfc@example.net,2015-11-12T00:00:00.000Z,modifiedBy.ihmfc@example.org

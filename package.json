@@ -1,0 +1,74 @@
+{
+  "name": "galactic-spacefarer-adventure",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@sap/cds": "^10"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^3"
+  },
+  "scripts": {
+    "start": "cds-serve"
+  },
+  "private": true,
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": "db.sqlite"
+        }
+      },
+      "auth": {
+        "kind": "mocked",
+        "users": {
+          "admin": {
+            "password": "admin",
+            "roles": [
+              "admin"
+            ]
+          },
+          "mike": {
+            "password": "mike123",
+            "roles": [
+              "spacefarer",
+              "manager"
+            ],
+            "attr": {
+              "originPlanet": "Planet X"
+            }
+          },
+          "john": {
+            "password": "john123",
+            "roles": [
+              "spacefarer",
+              "manager"
+            ],
+            "attr": {
+              "originPlanet": "Planet Y"
+            }
+          },
+          "rachel": {
+            "password": "rachel123",
+            "roles": [
+              "spacefarer"
+            ],
+            "attr": {
+              "originPlanet": "Planet X"
+            },
+            "steve": {
+              "password": "steve123",
+              "roles": [
+                "spacefarer"
+              ],
+              "attr": {
+                "originPlanet": "Planet Y"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

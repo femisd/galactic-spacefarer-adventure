@@ -1,0 +1,4 @@
+ID,name,description,createdAt,createdBy,modifiedAt,modifiedBy
+24333056-bf9d-4ac9-8dea-be9ec8850df7,Command,Directing galactic exploration,2004-12-25T00:00:00.000Z,createdBy.1g5jt@example.com,2010-03-09T00:00:00.000Z,modifiedBy.1g5jt@example.net
+17380652-1fda-473d-91c9-e1bf6996ed67,Engineering,Maintain and develop galactic vessels,2005-11-25T00:00:00.000Z,createdBy.acizw@example.com,2005-06-18T00:00:00.000Z,modifiedBy.acizw@example.org
+17380653-1c10-4962-b6b8-5fc0ea32be6d,Logistics,Manage supply chains and resource distribution,2002-06-02T00:00:00.000Z,createdBy.acizx@example.net,2002-02-16T00:00:00.000Z,modifiedBy.acizx@example.org
