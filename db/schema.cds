@@ -12,7 +12,8 @@ entity Spacefarers : cuid, managed {
     originPlanet            : String @mandatory;
     spacesuitColor          : String;
     department              : Association to Departments;
-    position                : Association to Positions;    
+    position                : Association to Positions;
+    email                   : String @mandatory @assert.format: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
 }
 
 /**

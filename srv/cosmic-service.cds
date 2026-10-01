@@ -31,4 +31,4 @@ service CosmicService @(requires: 'authenticated-user') {
     entity Positions   as projection on galactic.Positions;
 }
 
-annotate CosmicService.Spacefarers with @(odata.draft.enabled);
+annotate CosmicService.Spacefarers with @odata.draft.enabled;

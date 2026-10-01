@@ -1,0 +1,1 @@
+using CosmicService as service from '../../srv/cosmic-service';
