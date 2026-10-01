@@ -34,13 +34,20 @@ These users are assigned roles such as `admin`, `manager`, and `spacefarer`.
    npm install
    ```
 
-2. Start the CAP service:
+2. Populate the local SQLite database with sample data:
+
+   ```bash
+   cds deploy
+   ```
+
+
+3. Start the CAP service:
 
    ```bash
    cds watch
    ```
 
-3. Open the application in a browser:
+4. Open the application in a browser:
 
    ```text
    http://localhost:4004/
