@@ -4,7 +4,8 @@ service CosmicService @(requires: 'authenticated-user') {
 
     /**
      * Restricts access to spacefarers based on their origin planet.
-     * Grant spacefares with manager role the ability to create, update, and delete spacefarers from their own origin planet.
+     * Grant spacefares with manager role the ability to 
+     * create, update, and delete spacefarers from their own origin planet.
      */
     @restrict: [
         {

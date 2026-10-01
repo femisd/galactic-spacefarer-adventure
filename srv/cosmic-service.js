@@ -5,11 +5,16 @@ export class CosmicService extends cds.ApplicationService {
 
     const { Spacefarers } = cds.entities('CosmicService')
 
-    this.before('CREATE', Spacefarers, (req) => {
-      validateSpacefarerRegistration(req)
-      assignWormholeNavigationSkillTraining(req.data)
-      assignStardustCollectionBonus(req.data)
+    this.before('CREATE', Spacefarers, async (req) => {
+      await validateSpacefarerRegistration(req)
+      await assignStardustCollectionBonus(req.data)
+      await assignWormholeNavigationSkillTraining(req.data)
     })
+
+    this.before('UPDATE', Spacefarers, async (req) => {
+      await validateSpacefarerRegistration(req)
+    })
+
 
     this.after('CREATE', Spacefarers, (spacefarers, req) => {
 
@@ -19,8 +24,7 @@ export class CosmicService extends cds.ApplicationService {
   }
 }
 
-
-function validateSpacefarerRegistration(req) {
+async function validateSpacefarerRegistration(req) {
   /**
    * Validate that spacefarers are registered to the correct origin planet 
    * and that their stardust collection and wormhole navigation skill are within acceptable ranges.
@@ -40,21 +44,27 @@ function validateSpacefarerRegistration(req) {
   }
 }
 
-function assignWormholeNavigationSkillTraining(spacefarer) {
-  /**
-   * Assign wormhole navigation skill training to spacefarers with low skill levels, if they have high security clearance.
-   */
-  if (spacefarer.wormholeNavigationSkill < 50 && spacefarer.position.securityClearance >= 3) {
-    spacefarer.wormholeNavigationSkill += 20
-  }
-}
-
-function assignStardustCollectionBonus(spacefarer) {
+async function assignStardustCollectionBonus(spacefarer) {
   /**
    * Assign a stardust collection bonus to spacefarers with high wormhole navigation skill levels.
    */
-  if (spacefarer.wormholeNavigationSkill > 70) {
+  const highSkillThreshold = 70
+  if (spacefarer.wormholeNavigationSkill > highSkillThreshold) {
     spacefarer.stardustCollection += 50
+  }
+}
+
+async function assignWormholeNavigationSkillTraining(spacefarer) {
+  /**
+   * Assign basic wormhole navigation skill training to spacefarers with high security clearance but low skill levels.
+   */
+  const highSecurityClearanceThreshold = 3 // Clearance level at which spacefarers are eligible for skill training
+  const minimumSkillThreshold = 50 // Spacefarers starting with skill level below this threshold will receive basic training
+  const skillTrainingGain = 30 // Amount of skill points gained from basic training
+
+  const secClearanceCol = await SELECT.from('Positions', { ID: spacefarer.position_ID }, position => { position.securityClearance })
+  if (secClearanceCol.securityClearance >= highSecurityClearanceThreshold && spacefarer.wormholeNavigationSkill < minimumSkillThreshold) {
+    spacefarer.wormholeNavigationSkill += skillTrainingGain
   }
 }
 

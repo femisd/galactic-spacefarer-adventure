@@ -81,6 +81,11 @@ annotate service.Spacefarers with @(
         Data : [
             {
                 $Type : 'UI.DataField',
+                Value : name,
+                Label : 'Name',
+            },
+            {
+                $Type : 'UI.DataField',
                 Value : originPlanet,
                 Label : 'Origin Planet',
             },
@@ -116,12 +121,12 @@ annotate service.Spacefarers with @(
         Data : [
             {
                 $Type : 'UI.DataField',
-                Value : department.name,
+                Value : department_ID,
                 Label : 'Department',
             },
             {
                 $Type : 'UI.DataField',
-                Value : position.title,
+                Value : position_ID,
                 Label : 'Position',
             },
             {
@@ -132,7 +137,7 @@ annotate service.Spacefarers with @(
             {
                 $Type : 'UI.DataField',
                 Value : position.securityClearance,
-                Label : 'Security Clearance',
+                Label : 'Security Clearance Level',
             },
             {
                 $Type : 'UI.DataField',
@@ -158,4 +163,57 @@ annotate service.Positions with {
 annotate service.Departments with {
     name @Common.Label : 'department/name'
 };
+
+annotate service.Spacefarers with {
+    department @(
+        Common.Text : department.name,
+        Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'Departments',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : department_ID,
+                    ValueListProperty : 'ID',
+                },
+            ],
+            Label : 'Department',
+        },
+        Common.ValueListWithFixedValues : true,
+        Common.Text.@UI.TextArrangement : #TextOnly,
+        )
+};
+
+annotate service.Spacefarers with {
+    position @(
+        Common.Text : position.title,
+        Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'Positions',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : position_ID,
+                    ValueListProperty : 'ID',
+                },
+            ],
+            Label : 'Position',
+        },
+        Common.ValueListWithFixedValues : true,
+        Common.Text.@UI.TextArrangement : #TextOnly,
+    )
+};
+
+annotate service.Positions with {
+    ID @(
+        Common.Text : title,
+        Common.Text.@UI.TextArrangement : #TextOnly,
+    )
+};
+
+annotate service.Departments with {
+    ID @(
+        Common.Text : name,
+        Common.Text.@UI.TextArrangement : #TextOnly,
+)};
 
