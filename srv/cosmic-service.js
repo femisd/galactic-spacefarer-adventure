@@ -1,4 +1,5 @@
 import cds from '@sap/cds'
+import nodemailer from "nodemailer";
 
 export class CosmicService extends cds.ApplicationService {
   init() {
@@ -16,8 +17,8 @@ export class CosmicService extends cds.ApplicationService {
     })
 
 
-    this.after('CREATE', Spacefarers, (spacefarers, req) => {
-
+    this.after('CREATE', Spacefarers, async (spacefarers, req) => {
+      await sendRegistrationNotificationEmail(spacefarers)
     })
 
     return super.init()
@@ -65,6 +66,32 @@ async function assignWormholeNavigationSkillTraining(spacefarer) {
   const secClearanceCol = await SELECT.from('Positions', { ID: spacefarer.position_ID }, position => { position.securityClearance })
   if (secClearanceCol.securityClearance >= highSecurityClearanceThreshold && spacefarer.wormholeNavigationSkill < minimumSkillThreshold) {
     spacefarer.wormholeNavigationSkill += skillTrainingGain
+  }
+}
+
+async function sendRegistrationNotificationEmail(spacefarer) {
+  /**
+   * Send a notification email to the spacefarer upon successful registration.
+   */
+  const transporter = nodemailer.createTransport({
+    service: process.env.EMAIL_SERVICE,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    }
+  })
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: spacefarer.email,
+    subject: 'Spacefarer Registration Successful',
+    text: `Dear ${spacefarer.name},\n\nYour registration as a spacefarer has been successfully completed. Welcome aboard!\n\nBest regards,\nGalactic Spacefarer Adventure Team`
+  }
+
+  try {
+    await transporter.sendMail(mailOptions)
+  } catch (error) {
+    console.error('Error sending registration notification email:', error)
   }
 }
 
